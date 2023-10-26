@@ -60,7 +60,7 @@ public class BatchConfig {
         return new FlatFileItemWriterBuilder<OutputRecord>()
                 .name("output-record-Writer")
                 .resource(new FileSystemResource("output/outputData.csv"))
-                .append(true)
+                .append(false)
                 .lineAggregator(new DelimitedLineAggregator<>() {{
                     setDelimiter(",");
                     setFieldExtractor(new BeanWrapperFieldExtractor<>(){{
@@ -130,8 +130,8 @@ public class BatchConfig {
         factory.setDatabaseType(DatabaseType.H2.getProductName());
         factory.setDataSource(dataSource);
         factory.setTransactionManager(transactionManager);
-        factory.setIncrementerFactory(new DefaultDataFieldMaxValueIncrementerFactory(dataSource));
         factory.setJdbcOperations(jdbcOperations);
+        factory.setIncrementerFactory(new DefaultDataFieldMaxValueIncrementerFactory(dataSource));
         factory.setConversionService(new DefaultConversionService());
         factory.setSerializer(new DefaultExecutionContextSerializer());
         return factory.getObject();

@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 import static software.amazon.awssdk.utils.StringUtils.isNotBlank;
@@ -28,7 +28,7 @@ public class InputRecordProcessor implements ItemProcessor<InputRecord, OutputRe
             inputToWrite += STR."_\{recordMetaData.getValue()}";
         }
 
-        log.info(STR."\{ ZonedDateTime.now() }: PROCESSED \{inputToWrite}");
+        log.info(STR."\{ Instant.now().toString() }: PROCESSED \{inputToWrite}");
         return new OutputRecord(UUID.randomUUID(), inputToWrite, inputToWrite.hashCode());
     }
 }
