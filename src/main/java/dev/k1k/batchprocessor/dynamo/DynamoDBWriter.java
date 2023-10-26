@@ -1,6 +1,6 @@
 package dev.k1k.batchprocessor.dynamo;
 
-import dev.k1k.batchprocessor.batch.InputObjProcessor;
+import dev.k1k.batchprocessor.model.OutputRecord;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -14,13 +14,13 @@ import static dev.k1k.batchprocessor.dynamo.DynamoBatchWriteUtil.batchWrite;
 @Component
 @RequiredArgsConstructor
 public class DynamoDBWriter {
-    private final DynamoDbEnhancedClient dynamoDbEnhancedClient;
+    private final DynamoDbEnhancedClient dynamoDbEnhancedClient = null;
 
-    public void putBatchRecords(List<InputObjProcessor.OutputObj> objects) {
-        DynamoDbTable<InputObjProcessor.OutputObj> outputMappedTable = dynamoDbEnhancedClient.table("output", TableSchema.fromBean(InputObjProcessor.OutputObj.class));
+    public void putBatchRecords(List<OutputRecord> objects) {
+        DynamoDbTable<OutputRecord> outputMappedTable = dynamoDbEnhancedClient.table("output", TableSchema.fromBean(OutputRecord.class));
         // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/example_dynamodb_BatchWriteItem_section.html
 
-        batchWrite(InputObjProcessor.OutputObj.class, objects, dynamoDbEnhancedClient, outputMappedTable);
+        batchWrite(OutputRecord.class, objects, dynamoDbEnhancedClient, outputMappedTable);
     }
 
 

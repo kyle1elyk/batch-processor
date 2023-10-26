@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 public class DynamoBatchWriteUtil {
     // https://stackoverflow.com/a/68217317 Write more than 25 items using BatchWriteItemEnhancedRequest Dynamodb JAVA SDK 2
     // https://stackoverflow.com/a/50646576 Efficient way to divide a list into lists of n size
-    private static final int MAX_DYNAMODB_BATCH_SIZE = 25;  // AWS doesn't like if you try to include more than 25 items in a batch or sub-batch
+    public static final int MAX_DYNAMODB_BATCH_SIZE = 25;  // AWS doesn't like if you try to include more than 25 items in a batch or sub-batch
 
     /**
      * Writes the list of items to the specified DynamoDB table.

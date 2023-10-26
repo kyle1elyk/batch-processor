@@ -1,13 +1,16 @@
 package dev.k1k.batchprocessor.batch;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.k1k.batchprocessor.model.InputRecord;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.file.LineMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class InputObjJsonLineMapper implements LineMapper<InputObjProcessor.InputObj> {
+@RequiredArgsConstructor
+public class InputObjJsonLineMapper implements LineMapper<InputRecord> {
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
 
     /**
@@ -16,8 +19,8 @@ public class InputObjJsonLineMapper implements LineMapper<InputObjProcessor.Inpu
      * @see LineMapper#mapLine(String, int)
      */
     @Override
-    public InputObjProcessor.InputObj mapLine(String line, int lineNumber) throws Exception {
-        return mapper.readValue(line, InputObjProcessor.InputObj.class);
+    public InputRecord mapLine(String line, int lineNumber) throws Exception {
+        return objectMapper.readValue(line, InputRecord.class);
     }
 
 }
